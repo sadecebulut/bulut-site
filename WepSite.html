@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulut</title>
+
+  <style>
+    :root {
+      --neon: #8b5cf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #000;
+      font-family: system-ui, sans-serif;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 🎥 ARKA PLAN VİDEO */
+    .bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.35);
+      z-index: -3;
+    }
+
+    /* 🟣 ARKA GLOW */
+    .bg-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.25), transparent 60%);
+      filter: blur(90px);
+      opacity: .8;
+      z-index: -2;
+    }
+
+    /* 🪟 ANA KART */
+    .card {
+      width: min(1500px, 90vw);
+      height: min(1000px, 90vh);
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(22px);
+      box-shadow:
+        0 0 100px rgba(139, 92, 246, 0.25),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+
+
+
+    .card-2 {
+      width: min(500px, 90vw);
+      height: min(700px, 90vh);
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(22px);
+      box-shadow:
+        0 0 100px rgba(139, 92, 246, 0.25),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+
+      position: fixed;
+      /* 🔥 SABİT */
+      padding: 10px;
+      margin-top: 600px;
+      right: 30px;
+      /* 👉 sağdan boşluk */
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+
+
+
+
+.glow-text {
+  font-size: clamp(15px, 2.2vw, 10px);
+  line-height: 1.8;
+  font-weight: 500;
+  max-width: 900px;
+}
+
+.glow-text span {
+  display: inline-block;
+  margin-right: 8px;
+  color: rgba(255,255,255,0.15);
+
+  animation-name: glowWord;
+  animation-duration: 7s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  /* BAŞTAN → SONA AKIŞ */
+  animation-delay: calc(var(--i) * 0.2s);
+}
+
+/* 🎮 ANİMASYON */
+@keyframes glowWord {
+
+  /* NORMAL */
+  0% {
+    color: rgba(255, 2, 221, 0.801);
+    text-shadow: none;
+  }
+
+  /* KIRMIZI – AKTİF KELİME */
+  30% {
+    color: #e523f7;
+    text-shadow:
+      0 0 6px rgba(126, 4, 116, 0.8),
+      0 0 14px rgba(122, 0, 146, 0.6),
+      0 0 28px rgba(122, 0, 146, 0.4);
+  }
+
+  /* ARKADAN GELENLER – BEYAZ */
+  55% {
+    color: rgba(255,255,255,0.95);
+    text-shadow:
+      0 0 6px rgba(116, 0, 139, 0.6);
+  }
+
+  /* SÖNÜŞ */
+  100% {
+    color: rgba(167, 2, 189, 0.12);
+    text-shadow: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+    .info-text {
+      position: fixed;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+
+      /* 🔥 PARLAK RENK GEÇİŞİ */
+      background: linear-gradient(50deg,
+          #ffffff,
+          #c4b5fd,
+          #8b5cf6,
+          #80058b);
+      background-size: 300% 100%;
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      animation: glowMove 5s linear infinite;
+
+      text-shadow:
+        0 0 10px rgba(255, 255, 255, .6),
+        0 0 25px rgba(139, 92, 246, .6),
+        0 0 45px rgba(139, 92, 246, .4);
+    }
+
+    /* ✨ AKAN GLOW */
+    @keyframes glowMove {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      100% {
+        background-position: 300% 50%;
+      }
+    }
+
+
+
+
+
+    /* 📦 İÇERİK */
+    .content {
+      text-align: center;
+      color: white;
+      padding: 40px;
+
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 2px solid var(--neon);
+      box-shadow: 0 0 25px rgba(139, 92, 246, .6);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    p {
+      opacity: .75;
+      margin: 10px 0 30px;
+    }
+
+    .links a {
+      width: 300px;
+      display: block;
+      padding: 14px;
+      margin: 12px auto;
+      /* kartın ortasında dursun */
+      border-radius: 14px;
+      text-decoration: none;
+      color: white;
+      font-weight: 700;
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      box-shadow: 0 0 50px rgba(139, 92, 246, .45);
+      transition: .2s;
+    }
+
+    .links a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 40px rgba(139, 92, 246, .8);
+    }
+
+    /* 🎵 MÜZİK PLAYER */
+    .music-player {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+      border-radius: 14px;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 20px rgba(139, 92, 246, .35);
+      color: white;
+      z-index: 10;
+    }
+
+    .music-player:hover {
+      box-shadow: 0 0 35px rgba(139, 92, 246, .7);
+    }
+
+    .music-cover {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--neon);
+    }
+
+    .music-info {
+      font-size: 12px;
+    }
+
+    .music-title {
+      font-weight: 700;
+    }
+
+    .music-status {
+      opacity: .6;
+      font-size: 11px;
+    }
+  </style>
+</head>
+
+
+
+
+
+
+
+<body>
+
+  <!-- 🎥 ARKA PLAN VİDEO -->
+  <video class="bg-video" autoplay muted loop>
+    <source src="edit2.mp4" type="video/mp4">
+  </video>
+
+  <div class="bg-glow"></div>
+
+
+
+
+
+
+  <!-- 🎵 MÜZİK -->
+  <div class="music-player" id="musicToggle">
+    <img class="music-cover" src="wparka.jpg">
+    <div class="music-info">
+      <div class="music-title">Night Drive</div>
+      <div class="music-status" id="musicStatus">Paused</div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="edit2.mp4" type="audio/mpeg">
+  </audio>
+
+
+
+
+
+  <!-- 🪟 ANA KART -->
+  <div class="card">
+    <div class="card-2">
+    
+    <p class="glow-text words">
+  <span style="--i:80">Ben</span>
+  <span style="--i:79">Bulut.</span><br><br>
+
+  <span style="--i:78">Oyun</span>
+  <span style="--i:77">geliştirmeyi;</span>
+  <span style="--i:76">fikirleri,</span>
+  <span style="--i:75">mekanikleri</span>
+  <span style="--i:74">ve</span>
+  <span style="--i:73">görselliği</span>
+  <span style="--i:72">bir</span>
+  <span style="--i:71">araya</span>
+  <span style="--i:70">getirerek</span><br>
+  <span style="--i:69">yaşayan,</span>
+  <span style="--i:68">nefes</span>
+  <span style="--i:67">alan</span>
+  <span style="--i:66">dijital</span>
+  <span style="--i:65">dünyalar</span>
+  <span style="--i:64">oluşturmak</span>
+  <span style="--i:63">olarak</span>
+  <span style="--i:62">görüyorum.</span><br>
+  <span style="--i:61">Kodun,</span>
+  <span style="--i:60">tasarımın</span>
+  <span style="--i:59">ve</span>
+  <span style="--i:58">hissin</span>
+  <span style="--i:57">dengede</span>
+  <span style="--i:56">olduğu</span>
+  <span style="--i:55">deneyimler</span>
+  <span style="--i:54">üretmeyi</span>
+  <span style="--i:53">hedefliyorum.</span><br><br>
+
+  <span style="--i:52">Oynanış</span>
+  <span style="--i:51">sistemleri,</span>
+  <span style="--i:50">UI</span>
+  <span style="--i:49">mekanikleri</span>
+  <span style="--i:48">ve</span>
+  <span style="--i:47">genel</span>
+  <span style="--i:46">oyuncu</span>
+  <span style="--i:45">deneyimi</span>
+  <span style="--i:44">üzerine</span>
+  <span style="--i:43">çalışıyorum.</span><br>
+  <span style="--i:42">Küçük</span>
+  <span style="--i:41">detayların</span>
+  <span style="--i:40">büyük</span>
+  <span style="--i:39">farklar</span>
+  <span style="--i:38">yarattığına</span>
+  <span style="--i:37">inanıyorum;</span>
+  <span style="--i:36">çünkü</span>
+  <span style="--i:35">bir</span>
+  <span style="--i:34">oyunu</span>
+  <span style="--i:33">iyi</span>
+  <span style="--i:32">yapan</span>
+  <span style="--i:31">şey</span>
+  <span style="--i:30">çoğu</span>
+  <span style="--i:29">zaman</span>
+  <span style="--i:28">fark</span>
+  <span style="--i:27">edilmeden</span>
+  <span style="--i:26">hissettirdikleridir.</span><br><br>
+
+  <span style="--i:25">Hedefim;</span>
+  <span style="--i:24">sadece</span>
+  <span style="--i:23">oynanıp</span>
+  <span style="--i:22">geçilen</span>
+  <span style="--i:21">değil,</span>
+  <span style="--i:20">bitirildikten</span>
+  <span style="--i:19">sonra</span>
+  <span style="--i:18">bile</span>
+  <span style="--i:17">akılda</span>
+  <span style="--i:16">kalan,</span>
+  <span style="--i:15">tekrar</span>
+  <span style="--i:14">dönülmek</span>
+  <span style="--i:13">istenen</span>
+  <span style="--i:12">oyunlar</span>
+  <span style="--i:11">geliştirmek.</span><br>
+  <span style="--i:10">Bunun</span>
+  <span style="--i:9">zor</span>
+  <span style="--i:8">bir</span>
+  <span style="--i:7">hedef</span>
+  <span style="--i:6">olduğunun</span>
+  <span style="--i:5">farkındayım,</span><br>
+  <span style="--i:4">ama</span>
+  <span style="--i:3">beni</span>
+  <span style="--i:2">geliştiren</span>
+  <span style="--i:1">ve</span>
+  <span style="--i:0">motive</span>
+  <span style="--i:-1">eden</span>
+  <span style="--i:-2">şey</span>
+  <span style="--i:-3">de</span>
+  <span style="--i:-4">tam</span>
+  <span style="--i:-5">olarak</span>
+  <span style="--i:-6">bu</span>
+  <span style="--i:-7">zorluk.</span>
+</p>
+
+
+    </div>
+    <div class="content">
+      <img class="avatar" src="pp.jpg">
+     <p class="glow-text">
+  <span style="--i:20">M</span>
+  <span style="--i:19">e</span>
+  <span style="--i:18">r</span>
+  <span style="--i:17">h</span>
+  <span style="--i:16">a</span>
+  <span style="--i:15">b</span>
+  <span style="--i:14">a</span>
+  <span style="--i:13">,</span>
+  <span style="--i:12"> </span>
+  <span style="--i:11">b</span>
+  <span style="--i:10">e</span>
+  <span style="--i:9">n</span>
+  <span style="--i:8"> </span>
+  <span style="--i:7">B</span>
+  <span style="--i:6">u</span>
+  <span style="--i:5">l</span>
+  <span style="--i:4">u</span>
+  <span style="--i:3">t</span>
+  <span style="--i:2">.</span>
+</p>
+
+      <div class="info-text">
+        BULUT <span>DEVELOPER</span>
+      </div>
+
+      <div class="links">
+        <a href="https://discord.gg/TtjunQXw">Discord</a>
+        <a href="https://github.com/sadecebulut">GitHub</a>
+        <a href="https://www.instagram.com/sadecebexxiste/">Instagram</a>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    const music = document.getElementById("bgMusic");
+    const toggle = document.getElementById("musicToggle");
+    const statusText = document.getElementById("musicStatus");
+
+    let playing = false;
+
+    toggle.addEventListener("click", () => {
+      if (!playing) {
+        music.volume = 0.5;
+        music.play();
+        statusText.textContent = "Playing";
+      } else {
+        music.pause();
+        statusText.textContent = "Paused";
+      }
+      playing = !playing;
+    });
+  </script>
+
+</body>
+
+</html>
